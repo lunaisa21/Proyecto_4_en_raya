@@ -1,4 +1,4 @@
-package datos;
+package operaciones;
 
 public class ValidadorTablero {
     public boolean columnaLlena(int columna){
