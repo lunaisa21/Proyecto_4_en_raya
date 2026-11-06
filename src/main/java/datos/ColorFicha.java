@@ -1,7 +1,6 @@
-package org.example;
+package datos;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public enum ColorFicha {
