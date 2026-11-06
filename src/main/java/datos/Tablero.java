@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Tablero {
-    private int filas = 6;
-    private int columnas = 7;
+    private int filas ;
+    private int columnas  ;
     private Ficha[][] casillas;
 }
