@@ -11,4 +11,8 @@ public class Tablero {
     private int filas = 6 ;
     private int columnas = 7 ;
     private Ficha[][] casillas;
+
+    public Tablero() {
+
+    }
 }
