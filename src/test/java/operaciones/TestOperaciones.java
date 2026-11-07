@@ -77,4 +77,51 @@ public class TestOperaciones {
     }
 
 
+    @Test
+    void validarHayCuatroEnLineaHorizontal(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        casillas[0][0]= new  Ficha(ColorFicha.AZUL);
+        casillas[0][1]= new Ficha(ColorFicha.AZUL);
+        casillas[0][2]= new Ficha(ColorFicha.AZUL);
+        casillas[0][3]= new Ficha(ColorFicha.AZUL);
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertTrue(validador.hayCuatroEnLinea());
+    }
+
+    @Test
+    void validarHayCuatroEnLineaVertical(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        casillas[0][0]= new  Ficha(ColorFicha.AZUL);
+        casillas[1][0]= new Ficha(ColorFicha.AZUL);
+        casillas[2][0]= new Ficha(ColorFicha.AZUL);
+        casillas[3][0]= new Ficha(ColorFicha.AZUL);
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertTrue(validador.hayCuatroEnLinea());
+    }
+
+    @Test
+    void validarHayCuatroEnLineaDiagonalDescendente(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        casillas[0][0]= new  Ficha(ColorFicha.AZUL);
+        casillas[1][1]= new Ficha(ColorFicha.AZUL);
+        casillas[2][2]= new Ficha(ColorFicha.AZUL);
+        casillas[3][3]= new Ficha(ColorFicha.AZUL);
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertTrue(validador.hayCuatroEnLinea());
+    }
+
+    @Test
+    void validarHayCuatroEnLinealDiagonalAscendente(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        casillas[3][3]= new  Ficha(ColorFicha.AZUL);
+        casillas[2][2]= new Ficha(ColorFicha.AZUL);
+        casillas[1][1]= new Ficha(ColorFicha.AZUL);
+        casillas[0][0]= new Ficha(ColorFicha.AZUL);
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertTrue(validador.hayCuatroEnLinea());
+    }
 }
