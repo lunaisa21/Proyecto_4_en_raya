@@ -28,12 +28,20 @@ public class Logicaia {
     }
 
     private int buscarVictoria() {
-        return -1; //
+        return -1;
     }
+
 
     private int buscarBloqueo() {
         return -1; //
     }
+    private boolean esEmpate() {
+
+        ValidadorTablero v = new ValidadorTablero(tablero);
+
+        return v.tableroLleno();
+    }
+
 
     private int buscarColumnaAleatoriaLibre() {
         Random random = new Random();
