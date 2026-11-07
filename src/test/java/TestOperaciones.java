@@ -4,8 +4,7 @@ import datos.Tablero;
 import operaciones.ValidadorTablero;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOperaciones {
 
@@ -54,4 +53,28 @@ public class TestOperaciones {
         ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
         assertFalse(validador.tableroLleno());
     }
+
+    @Test
+    void validarFilaLibre(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        casillas[5][2] = new Ficha(ColorFicha.ROJO);
+        casillas[4][2] = new Ficha(ColorFicha.ROJO);
+
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertEquals(3, validador.filaLibre(2));
+    }
+
+    @Test
+    void validarFilaNoLibre(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        for (int fila=0; fila<6; fila++){
+            casillas[fila][0] = new Ficha(ColorFicha.AZUL);
+        }
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertEquals(-1, validador.filaLibre(0));
+    }
+
+
 }

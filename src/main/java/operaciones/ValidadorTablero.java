@@ -21,7 +21,7 @@ public class ValidadorTablero {
     }
 
     public int filaLibre (int columna){
-         for (int fila=5; fila>=0;  fila++){
+         for (int fila=5; fila>=0;  fila--){
              if  (tablero.getCasillas()[fila][columna]==null){
                  return fila;
              }
