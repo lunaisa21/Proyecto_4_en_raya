@@ -28,12 +28,10 @@ public class Logicaia {
     }
 
     private int buscarVictoria() {
-        // TODO: Implementar la lógica para detectar si la IA puede hacer 4 en línea
         return -1; //
     }
 
     private int buscarBloqueo() {
-        // TODO: Implementar la lógica para detectar si el jugador contrincante va a ganar
         return -1; //
     }
 
@@ -43,7 +41,7 @@ public class Logicaia {
 
         do {
             col = random.nextInt(7);
-        } while (columnaLlenaEnTablero(col)); // Método auxiliar para verificar si está llena
+        } while (columnaLlenaEnTablero(col));
 
         return col;
     }
