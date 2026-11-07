@@ -21,12 +21,17 @@ public class ValidadorTablero {
     }
 
     public int filaLibre (int columna){
-
-         return 0;
+         for (int fila=5; fila>=0;  fila++){
+             if  (tablero.getCasillas()[fila][columna]==null){
+                 return fila;
+             }
+         }
+         return -1;
     }
 
     public boolean hayCuatroEnLinea(){
-        return true;
+
+         return true;
     }
     public boolean tableroLleno(){
          for (int fila=0; fila<6;  fila++){

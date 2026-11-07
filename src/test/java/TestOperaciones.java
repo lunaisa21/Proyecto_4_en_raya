@@ -28,4 +28,30 @@ public class TestOperaciones {
         ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
         assertFalse(validador.columnaLlena(0));
     }
+
+    @Test
+    void validarTableroLleno(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        for (int fila=0; fila<6; fila++){
+            for (int columna=0; columna<7; columna++){
+                casillas[fila][columna] = new Ficha(ColorFicha.ROJO);
+            }
+        }
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertTrue(validador.tableroLleno());
+    }
+
+    @Test
+    void validarTableroNoLleno(){
+        Tablero tableroPrueba = new Tablero(6, 7, new Ficha[6][7]);
+        Ficha[][] casillas = tableroPrueba.getCasillas();
+        for (int fila=0; fila<6; fila++){
+            for (int columna=0; columna<7; columna++){
+                casillas[fila][columna] = null;
+            }
+        }
+        ValidadorTablero validador = new ValidadorTablero(tableroPrueba);
+        assertFalse(validador.tableroLleno());
+    }
 }
