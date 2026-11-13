@@ -31,9 +31,47 @@ public class ValidadorTablero {
     }
 
     public boolean hayCuatroEnLinea(){
+         for (int fila=0; fila<6;  fila++){
+             for (int columna=0; columna<6; columna++){
+                  Ficha ficha = tablero.getCasillas()[fila][columna];
 
-         return true;
+                  if (ficha==null){
+                      continue;
+                  }
+                  ColorFicha colorF=ficha.getColor();
+                  //verificar horizontal
+                  if (columna+3<7 && mismaFicha(fila, columna, 0, 1, colorF)){
+                      return true;
+                  }
+                  //verificar vertical
+                 if (fila+3<6 && mismaFicha(fila, columna, 1, 0, colorF)){
+                     return true;
+                 }
+                 //verificar diagonal descendente
+                 if (fila+3<6 && columna+3<7 && mismaFicha(fila, columna, 1, 1, colorF)){
+                     return true;
+                 }
+                 //varificar diagonal ascendente
+                 if (fila-3>=0 && columna+3<7 && mismaFicha(fila, columna, -1, 1, colorF)){
+                     return true;
+                 }
+             }
+         }
+         return false;
     }
+    private boolean mismaFicha(int fila, int columna, int direccionFila, int direccionColumna, ColorFicha color) {
+        for (int i = 0; i < 4; i++) {
+            Ficha ficha = tablero.getCasillas()
+                    [fila + i * direccionFila]
+                    [columna + i * direccionColumna];
+            if (ficha == null || ficha.getColor() != color) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public boolean tableroLleno(){
          for (int fila=0; fila<6;  fila++){
              for  (int columna=0; columna<7; columna++){
