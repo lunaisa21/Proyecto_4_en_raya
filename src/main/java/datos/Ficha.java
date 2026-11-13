@@ -9,4 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Ficha {
     ColorFicha color;
+
+    public Ficha() {
+
+    }
 }
