@@ -12,7 +12,4 @@ public class Tablero {
     private int columnas = 7 ;
     private Ficha[][] casillas;
 
-    public Tablero() {
-
-    }
 }
