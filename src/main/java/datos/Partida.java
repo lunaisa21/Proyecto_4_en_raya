@@ -13,8 +13,5 @@ public class Partida {
     private Jugador IA;
     private Jugador turnoActual;
     private boolean terminada;
-    private Marcador Marcador;
-
-
 
 }

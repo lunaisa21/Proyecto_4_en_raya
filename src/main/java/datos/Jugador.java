@@ -10,6 +10,5 @@ import lombok.Setter;
 public class Jugador {
     private String nombre;
     private ColorFicha color;
-    private int victorias;
     private boolean esIa;
 }
