@@ -13,6 +13,6 @@ public class Tablero {
     private Ficha[][] casillas;
 
     public Tablero() {
-
+        this.casillas = new Ficha[filas][columnas];
     }
 }

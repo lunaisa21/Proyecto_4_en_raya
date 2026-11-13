@@ -11,6 +11,7 @@ public class ValidadorTablero {
          this.tablero = tablero;
      }
 
+
     public boolean columnaLlena(int columna){
         for (int fila=0; fila<6;  fila++){
             if (tablero.getCasillas()[fila][columna]==null){
