@@ -11,4 +11,5 @@ public class Jugador {
     private String nombre;
     private ColorFicha color;
     private boolean esIa;
+    private String id_Jugdor;
 }
