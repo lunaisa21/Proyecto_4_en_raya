@@ -4,7 +4,8 @@ import datos.Jugador;
 
 public class GestorPartida {
     public void iniciarPartida(){
-
+        Jugador jugador = new Jugador();
+        Jugador ia = new Jugador();
     }
     public Jugador eleguirJugadorInicial(){
         return null;
