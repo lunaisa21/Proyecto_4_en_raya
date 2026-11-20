@@ -7,7 +7,7 @@ public class GestorPartida {
         Jugador jugador = new Jugador();
         Jugador ia = new Jugador();
     }
-    public Jugador eleguirJugadorInicial(){
+    public Jugador elegirJugadorInicial(){
         return null;
     }
     public void asignarColores(){
@@ -16,7 +16,7 @@ public class GestorPartida {
     public boolean colocarFicha(int columna){
         return false;
     }
-    public void altenarTurno(){
+    public void alternarTurno(){
 
     }
     public void registrarVictoria(Jugador g){
