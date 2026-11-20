@@ -18,10 +18,11 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
         GestorConexion gestor = new GestorConexion(true);
         Connection conex = gestor.obtenerConexion();
         if (conex!= null){
-            String sql = "insert into Jugador  (nombre) values (?)";
+            String sql = "insert into Jugador  (nombre, idJugador) values (?, ?)";
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
                 psql.setString(1, jugador.getNombre());
+                psql.setInt(2, jugador.getIdJugador());
 
                 psql.executeUpdate();
             } catch (SQLException e) {
@@ -62,38 +63,35 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
 
     @Override
     public void actualizar(Jugador jugador) {
-        String sql = "update jugador set nombre = ? where idjugador = ?";
         GestorConexion gestor = new GestorConexion(true);
-
-        try (Connection conex = gestor.obtenerConexion()) {
-            if (conex == null) {
-                return;
-            }
-            try (PreparedStatement psql = conex.prepareStatement(sql)) {
+        Connection conex = gestor.obtenerConexion();
+        if (conex != null) {
+            String sql = "update jugador set nombre = ? where idjugador = ?";
+            try {
+                PreparedStatement psql = conex.prepareStatement(sql);
                 psql.setString(1, jugador.getNombre());
                 psql.setInt(2, jugador.getIdJugador());
                 psql.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void eliminar(Jugador jugador) {
-        String sql = "delete from jugador where idjugador = ?";
         GestorConexion gestor = new GestorConexion(true);
-
-        try (Connection conex = gestor.obtenerConexion()) {
-            if (conex == null) {
-                return;
-            }
-            try (PreparedStatement psql = conex.prepareStatement(sql)) {
+        Connection conex = gestor.obtenerConexion();
+        if (conex != null) {
+            String sql = "delete from jugador where idjugador = ?";
+            try {
+                PreparedStatement psql = conex.prepareStatement(sql);
                 psql.setInt(1, jugador.getIdJugador());
                 psql.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
         }
     }
 }
