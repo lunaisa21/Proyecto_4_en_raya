@@ -1,25 +1,26 @@
 package operaciones;
+
 import datos.Ficha;
 import datos.Tablero;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Objects;
 import java.util.Random;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 public class Logicaia {
+
     private Tablero tablero;
     private Ficha fichaIA;
     private Ficha fichaHumano;
 
-    // CONSTRUCTOR 1: Para que pasen los tests
+    // CONSTRUCTOR 1: Para pruebas unitarias
     public Logicaia(Tablero tablero) {
         this.tablero = tablero;
     }
 
-    // CONSTRUCTOR 2: Para tu juego real (le pasas las fichas)
+    // CONSTRUCTOR 2: Para el juego con las fichas configuradas
     public Logicaia(Tablero tablero, Ficha fichaIA, Ficha fichaHumano) {
         this.tablero = tablero;
         this.fichaIA = fichaIA;
@@ -27,7 +28,10 @@ public class Logicaia {
     }
 
     public int calcularJugada() {
-        // Si por alguna razón las fichas no se han inicializado, usa un fallback
+        if (tablero == null) {
+            return -1;
+        }
+
         if (fichaIA != null && fichaHumano != null) {
             int columnaGanadora = buscarVictoria();
             if (columnaGanadora != -1) {
@@ -40,15 +44,16 @@ public class Logicaia {
             }
         }
 
-        // Si no hay fichas configuradas o no hay jugadas de victoria/bloqueo, juega al azar
         return buscarColumnaAleatoriaLibre();
     }
 
     // ============ BUSCAR VICTORIA ============
     private int buscarVictoria() {
         for (int col = 0; col < tablero.getColumnas(); col++) {
-            if (!columnaDisponible(col)) continue;
             int fila = obtenerFilaDisponible(col);
+            if (fila == -1) {
+                continue;
+            }
             if (produceCuatro(fila, col, fichaIA)) {
                 return col;
             }
@@ -59,8 +64,10 @@ public class Logicaia {
     // ============ BUSCAR BLOQUEO ============
     private int buscarBloqueo() {
         for (int col = 0; col < tablero.getColumnas(); col++) {
-            if (!columnaDisponible(col)) continue;
             int fila = obtenerFilaDisponible(col);
+            if (fila == -1) {
+                continue;
+            }
             if (produceCuatro(fila, col, fichaHumano)) {
                 return col;
             }
@@ -73,16 +80,23 @@ public class Logicaia {
         Random rnd = new Random();
         for (int intento = 0; intento < 100; intento++) {
             int col = rnd.nextInt(tablero.getColumnas());
-            if (columnaDisponible(col)) return col;
+            if (columnaDisponible(col)) {
+                return col;
+            }
         }
         for (int col = 0; col < tablero.getColumnas(); col++) {
-            if (columnaDisponible(col)) return col;
+            if (columnaDisponible(col)) {
+                return col;
+            }
         }
         return -1;
     }
 
     // ============ HELPERS ============
     private int obtenerFilaDisponible(int col) {
+        if (col < 0 || col >= tablero.getColumnas() || tablero.getCasillas() == null) {
+            return -1;
+        }
         for (int fila = tablero.getFilas() - 1; fila >= 0; fila--) {
             if (tablero.getCasillas()[fila][col] == null) {
                 return fila;
@@ -96,7 +110,9 @@ public class Logicaia {
     }
 
     private boolean produceCuatro(int fila, int col, Ficha ficha) {
-        if (ficha == null) return false;
+        if (ficha == null || ficha.getColor() == null) {
+            return false;
+        }
 
         Ficha original = tablero.getCasillas()[fila][col];
         tablero.getCasillas()[fila][col] = ficha;
@@ -112,17 +128,27 @@ public class Logicaia {
             int total = 1
                     + contarDireccion(fila, col, dir[0], dir[1], ficha)
                     + contarDireccion(fila, col, -dir[0], -dir[1], ficha);
-            if (total >= 4) return true;
+            if (total >= 4) {
+                return true;
+            }
         }
         return false;
     }
 
     private int contarDireccion(int fila, int col, int df, int dc, Ficha ficha) {
+        if (ficha == null || ficha.getColor() == null) {
+            return 0;
+        }
+
         int contador = 0;
         int f = fila + df;
         int c = col + dc;
 
-        while (enTablero(f, c) && Objects.equals(ficha, tablero.getCasillas()[f][c])) {
+        while (enTablero(f, c)) {
+            Ficha actual = tablero.getCasillas()[f][c];
+            if (actual == null || !Objects.equals(ficha.getColor(), actual.getColor())) {
+                break;
+            }
             contador++;
             f += df;
             c += dc;
