@@ -16,7 +16,6 @@ class GestorPartidaTest {
     void setUp() {
         hum = new Jugador();
         ia = new Jugador();
-        // Pasamos null en el marcador para evitar errores si no lo tienes completo
         gestor = new GestorPartida(hum, ia, null);
     }
 
