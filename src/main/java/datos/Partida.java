@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Partida {
-    private Tablero Tablero;
+    private Tablero tablero;
     private Jugador jugador;
-    private Jugador IA;
+    private Jugador ia;
     private Jugador turnoActual;
     private boolean terminada;
-
 }
