@@ -21,10 +21,10 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
             String sql = "insert into Jugador  (nombre) values (?) returning idJugador";
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
-                psql.setString(1, jugador.getNombre());
+                psql.setString(2, jugador.getNombre());
                 ResultSet resultado = psql.executeQuery();
                 if (resultado.next()) {
-                    psql.setInt(2, jugador.getIdJugador());
+                    psql.setInt(1, jugador.getIdJugador());
                 }
                 psql.executeUpdate();
             } catch (SQLException e) {

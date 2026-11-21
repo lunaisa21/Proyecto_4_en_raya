@@ -44,6 +44,12 @@
             <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Driver de PostgreSQL para JDBC -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version> <!-- Puedes usar la versión estable más reciente -->
+        </dependency>
     </dependencies>
 
 
