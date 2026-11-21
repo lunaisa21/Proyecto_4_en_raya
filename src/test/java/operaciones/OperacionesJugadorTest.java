@@ -3,7 +3,7 @@ package operaciones;
 import datos.Jugador;
 import org.junit.jupiter.api.Test;
 
-public class OperacionesJugadroTest {
+public class OperacionesJugadorTest {
     @Test
     public void crearJuagdor(){
         OperacionesJugador operaciones = new OperacionesJugador();
