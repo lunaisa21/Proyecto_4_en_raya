@@ -18,15 +18,11 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
         GestorConexion gestor = new GestorConexion(true);
         Connection conex = gestor.obtenerConexion();
         if (conex!= null){
-            String sql = "insert into Jugador  (nombre) values (?) returning idJugador";
+            String sql = "insert into Jugador  (nombre, idJugador) values (?,?) returning idJugador";
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
-                psql.setString(2, jugador.getNombre());
-                ResultSet resultado = psql.executeQuery();
-                if (resultado.next()) {
-                    psql.setInt(1, jugador.getIdJugador());
-                }
-                psql.executeUpdate();
+                psql.setString(1, jugador.getNombre());
+                psql.setInt(2, jugador.getIdJugador());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -54,7 +50,6 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
 
                     jugador.setNombre(nombre);
                     jugador.setIdJugador(idJugador);
-                    jugador.setEsIa(false);
                     jugadores.add(jugador);
                 }
             } catch (SQLException e) {
