@@ -92,7 +92,7 @@ public class OperacionesMarcador implements GenericDAO<Marcador>{
             String sql ="delete from marcador where idJugador = ?";
             try {
                 PreparedStatement psql= conex.prepareStatement(sql);
-                psql.setInt(1, jugador.getIdJugador());
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
