@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class OperacionesJugadorTest {
     @Test
-    public void crearJuagdor(){
+    public void crearJugador(){
         OperacionesJugador operaciones = new OperacionesJugador();
         Jugador jugador = new Jugador();
         jugador.setNombre("David");
