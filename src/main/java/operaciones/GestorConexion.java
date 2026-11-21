@@ -15,7 +15,7 @@ public class GestorConexion {
             String host = ("ep-hidden-shape-be712s9x-pooler.c-9.us-east-2.aws.neon.tech");
             String bd = ("neondb");
             usuario = ("neondb_owner");
-            clave = ("NEON_PASSWORD=npg_8mLdhS1CWwFq");
+            clave = ("npg_Y7ITREd3AcHQ");
             urlConexion = "jdbc:postgresql://" + host + "/" + bd + "?sslmode=require";
         }
     }
