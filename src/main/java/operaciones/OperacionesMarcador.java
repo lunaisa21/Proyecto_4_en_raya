@@ -11,17 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OperacionesMarcador implements GenericDAO<Marcador>{
+
+    private final Jugador jugador;
+    public OperacionesMarcador(Jugador jugador){
+        this.jugador = jugador;
+    }
+
     @Override
     public void crear(Marcador marcador) {
         GestorConexion gestor = new GestorConexion(true);
         Connection conex = gestor.obtenerConexion();
         if (conex != null){
-            String sql = "INSERT INTO marcador (victorias, derrotas, empates) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO marcador (idJugador, victorias, derrotas, empates) VALUES (?, ?, ?, ?)";
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
                 psql.setInt(1, marcador.getVictorias());
                 psql.setInt(2, marcador.getDerrotas());
                 psql.setInt(3, marcador.getEmpates());
+                psql.setInt(4, jugador.getIdJugador());
 
                 psql.executeUpdate();
             } catch (SQLException e) {
@@ -36,7 +43,7 @@ public class OperacionesMarcador implements GenericDAO<Marcador>{
         Connection conex = gestor.obtenerConexion();
         List<Marcador> marcadores = new ArrayList<>();
         if (conex != null){
-            String sql = "select idjugador, victorias, derrotas, empates from marcador";
+            String sql = "select victorias, derrotas, empates from marcador where idJugador = ?";
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
                 ResultSet resultado = psql.executeQuery();
@@ -69,6 +76,7 @@ public class OperacionesMarcador implements GenericDAO<Marcador>{
                 psql.setInt(1, marcador.getVictorias());
                 psql.setInt(2, marcador.getDerrotas());
                 psql.setInt(3, marcador.getEmpates());
+                psql.setInt(4, jugador.getIdJugador());
                 psql.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -84,6 +92,7 @@ public class OperacionesMarcador implements GenericDAO<Marcador>{
             String sql ="delete from marcador where idJugador = ?";
             try {
                 PreparedStatement psql= conex.prepareStatement(sql);
+                psql.setInt(1, jugador.getIdJugador());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
