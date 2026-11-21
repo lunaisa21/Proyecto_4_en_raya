@@ -19,11 +19,38 @@ public class OperacionesJugadorTest {
 
         operaciones.crear(jugador);
     }
+
     @Test
-    public void concultarJugador(){
+    public void consultarJugador(){
         OperacionesJugador operaciones = new OperacionesJugador();
-        List<Jugador> jugadores = new ArrayList<>();
+        List<Jugador> jugadores = operaciones.consultar();
         jugadores.forEach(jugador -> System.out.println(jugador));
-        assertFalse(jugadores.size() > 0, "Se obtuvo");
+        assertTrue(jugadores.size() > 0, "Se obtuvo");
     }
+
+    @Test
+    public void actualizarJugador() {
+        OperacionesJugador operaciones = new OperacionesJugador();
+        Jugador jugador = new Jugador();
+        jugador.setNombre("David_Original");
+        jugador.setEsIa(false);
+        operaciones.crear(jugador);
+        jugador.setNombre("David_Actualizado");
+        jugador.setEsIa(true);
+        operaciones.actualizar(jugador);
+        assertTrue(true, "El jugador se actualizó correctamente");
+    }
+
+    @Test
+    public void eliminarJugador() {
+        OperacionesJugador operaciones = new OperacionesJugador();
+        Jugador jugador = new Jugador();
+        jugador.setNombre("JugadorParaBorrar");
+        jugador.setEsIa(false);
+        operaciones.crear(jugador);
+        operaciones.eliminar(jugador);
+        assertTrue(true, "El jugador fue eliminado exitosamente");
+    }
+
+
 }
