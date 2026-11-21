@@ -90,7 +90,6 @@ public class OperacionesJugador implements GenericDAO<Jugador> {
             try {
                 PreparedStatement psql = conex.prepareStatement(sql);
                 psql.setInt(1, jugador.getIdJugador());
-                psql.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
