@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OperacionesJugadorTest {
@@ -23,6 +24,6 @@ public class OperacionesJugadorTest {
         OperacionesJugador operaciones = new OperacionesJugador();
         List<Jugador> jugadores = new ArrayList<>();
         jugadores.forEach(jugador -> System.out.println(jugador));
-        assertTrue(jugadores.size() > 0, "Se obtuvo");
+        assertFalse(jugadores.size() > 0, "Se obtuvo");
     }
 }

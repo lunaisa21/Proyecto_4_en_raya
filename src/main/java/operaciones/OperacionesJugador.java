@@ -1,7 +1,5 @@
 package operaciones;
 
-import datos.ColorFicha;
-import datos.Ficha;
 import datos.Jugador;
 
 import java.sql.Connection;
@@ -13,83 +11,64 @@ import java.util.List;
 
 public class OperacionesJugador implements GenericDAO<Jugador> {
 
+    /** idJugador lo genera la base de datos (SERIAL); se copia al objeto con RETURNING. */
     @Override
     public void crear(Jugador jugador) {
-        GestorConexion gestor = new GestorConexion(true);
-        Connection conex = gestor.obtenerConexion();
-        if (conex!= null){
-            String sql = "insert into Jugador  (nombre, idJugador) values (?,?) returning idJugador";
-            try {
-                PreparedStatement psql = conex.prepareStatement(sql);
-                psql.setString(1, jugador.getNombre());
-                psql.setInt(2, jugador.getIdJugador());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        String sql = "INSERT INTO jugador (nombre) VALUES (?) RETURNING idjugador";
+        try (Connection conex = new GestorConexion(true).obtenerConexion();
+             PreparedStatement psql = conex.prepareStatement(sql)) {
+            psql.setString(1, jugador.getNombre());
+            try (ResultSet rs = psql.executeQuery()) {
+                if (rs.next()) {
+                    jugador.setIdJugador(rs.getInt("idjugador"));
+                }
             }
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public List<Jugador> consultar() {
-        GestorConexion gestor = new GestorConexion(true);
-        Connection conex = gestor.obtenerConexion();
         List<Jugador> jugadores = new ArrayList<>();
-        if (conex!= null){
-            String sql = "select idJugador, nombre from Jugador";
-            try {
-                PreparedStatement psql = conex.prepareStatement(sql);
-                ResultSet resultado = psql.executeQuery();
-
-                while (resultado.next()) {
-                    Jugador jugador = new Jugador();
-                    String nombre = resultado.getString("nombre");
-                    int idJugador = resultado.getInt("idJugador ");
-                    boolean esIa = resultado.getBoolean("esIa");
-                    ColorFicha color = resultado.getObject("color", ColorFicha.class);
-
-                    jugador.setNombre(nombre);
-                    jugador.setIdJugador(idJugador);
-                    jugadores.add(jugador);
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        String sql = "SELECT idjugador, nombre FROM jugador ORDER BY idjugador";
+        try (Connection conex = new GestorConexion(true).obtenerConexion();
+             PreparedStatement psql = conex.prepareStatement(sql);
+             ResultSet rs = psql.executeQuery()) {
+            while (rs.next()) {
+                Jugador jugador = new Jugador();
+                jugador.setIdJugador(rs.getInt("idjugador"));
+                jugador.setNombre(rs.getString("nombre"));
+                jugadores.add(jugador);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return jugadores;
     }
 
     @Override
     public void actualizar(Jugador jugador) {
-        GestorConexion gestor = new GestorConexion(true);
-        Connection conex = gestor.obtenerConexion();
-        if (conex != null) {
-            String sql = "update jugador set nombre = ? where idjugador = ?";
-            try {
-                PreparedStatement psql = conex.prepareStatement(sql);
-                psql.setString(1, jugador.getNombre());
-                psql.setInt(2, jugador.getIdJugador());
-                psql.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+        String sql = "UPDATE jugador SET nombre = ? WHERE idjugador = ?";
+        try (Connection conex = new GestorConexion(true).obtenerConexion();
+             PreparedStatement psql = conex.prepareStatement(sql)) {
+            psql.setString(1, jugador.getNombre());
+            psql.setInt(2, jugador.getIdJugador());
+            psql.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void eliminar(Jugador jugador) {
-        GestorConexion gestor = new GestorConexion(true);
-        Connection conex = gestor.obtenerConexion();
-        if (conex != null) {
-            String sql = "delete from jugador where idjugador = ?";
-            try {
-                PreparedStatement psql = conex.prepareStatement(sql);
-                psql.setInt(1, jugador.getIdJugador());
-                psql.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
+        String sql = "DELETE FROM jugador WHERE idjugador = ?";
+        try (Connection conex = new GestorConexion(true).obtenerConexion();
+             PreparedStatement psql = conex.prepareStatement(sql)) {
+            psql.setInt(1, jugador.getIdJugador());
+            psql.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
