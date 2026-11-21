@@ -13,14 +13,9 @@ public class GestorPartida {
 
     @Getter
     private final Partida partida;
-
-    @Getter
     private final ValidadorTablero validador;
-
     private final Logicaia logicaia;
     private final Marcador marcadorJugador;
-
-    @Getter
     private Jugador ganador;
 
     private final Random random = new Random();
